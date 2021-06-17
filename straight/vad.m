@@ -1,4 +1,8 @@
-%% readfile
+%% TODO:
+% F0解析間隔は，のちにアップサンプリングできるように，割り切れる数値がいいかもしれない．
+
+
+%% readfile dev
 % file = 'E:\999_tools\straight\legacy_STRAIGHT\src\vaiueo2d.wav';
 % file = 'E:\999_tools\asano.wav';
 for i = 1:9
@@ -11,7 +15,9 @@ for i = 1:9
     writematrix(vuv, strcat(file, '_vuv.csv'));
 end
 
-for i = 1:9
+
+%% test
+for i = 6:9
     file = strcat('E:\002_datasets\006_recola\2018_AVEC\recordings_audio\recordings_audio\test_', num2str(i), '.wav');
     [x, fs] = audioread(file);
     disp(file);
