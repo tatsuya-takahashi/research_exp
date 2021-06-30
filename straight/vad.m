@@ -1,5 +1,6 @@
 %% TODO:
 % F0解析間隔は，のちにアップサンプリングできるように，割り切れる数値がいいかもしれない．
+% F0frameUpdateInterval ?
 
 
 %% readfile dev
@@ -10,21 +11,25 @@ for i = 1:9
     [x, fs] = audioread(file);
     disp(file);
     disp(datetime);
-    [f0raw,vuv,auxouts,prmouts]=MulticueF0v14(x,fs);
-    writematrix(f0raw, strcat(file, '.csv'));
-    writematrix(vuv, strcat(file, '_vuv.csv'));
+    % [f0raw,vuv,auxouts,prmouts]=MulticueF0v14(x,fs);
+    % [f0raw,vuv,auxouts,prmouts]=exstraightsource(x,fs);
+    [f0raw,apFixp,analysisParams]=exstraightsource(x,fs);
+    writematrix(f0raw, strcat(file, '_default.csv'));
+    % writematrix(vuv, strcat(file, '_default_vuv.csv'));
 end
 
 
 %% test
-for i = 6:9
+for i = 1:9
     file = strcat('E:\002_datasets\006_recola\2018_AVEC\recordings_audio\recordings_audio\test_', num2str(i), '.wav');
     [x, fs] = audioread(file);
     disp(file);
     disp(datetime);
-    [f0raw,vuv,auxouts,prmouts]=MulticueF0v14(x,fs);
-    writematrix(f0raw, strcat(file, '.csv'));
-    writematrix(vuv, strcat(file, '_vuv.csv'));
+    % [f0raw,vuv,auxouts,prmouts]=MulticueF0v14(x,fs);
+    % writematrix(f0raw, strcat(file, '.csv'));
+    % writematrix(vuv, strcat(file, '_vuv.csv'));
+    [f0raw,apFixp,analysisParams]=exstraightsource(x,fs);
+    writematrix(f0raw, strcat(file, '_default.csv'));
 end
 
 
@@ -34,9 +39,12 @@ for i = 1:9
     [x, fs] = audioread(file);
     disp(file);
     disp(datetime);
-    [f0raw,vuv,auxouts,prmouts]=MulticueF0v14(x,fs);
-    writematrix(f0raw, strcat(file, '.csv'));
-    writematrix(vuv, strcat(file, '_vuv.csv'));
+    % [f0raw,vuv,auxouts,prmouts]=MulticueF0v14(x,fs);
+    % writematrix(f0raw, strcat(file, '.csv'));
+    % writematrix(vuv, strcat(file, '_vuv.csv'));
+    
+    [f0raw,apFixp,analysisParams]=exstraightsource(x,fs);
+    writematrix(f0raw, strcat(file, '_default.csv'));
 end
 
 %% extract F0
