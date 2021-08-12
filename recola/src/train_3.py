@@ -39,7 +39,7 @@ def seed_everything(seed):
 RANDOM_SEED = 42
 seed_everything(RANDOM_SEED)
 
-skf = StratifiedKFold(n_splits=5, random_state=RANDOM_SEED, shuffle=True)
+skf = StratifiedKFold(n_splits=3, random_state=RANDOM_SEED, shuffle=True)
 
 # svr = SVR(kernel = "rbf",gamma = 1,C=100,epsilon = 0)
 # cross_validate(svr,X,y_arousal,scoring="r2",cv=gkf, groups=speakers)
@@ -60,7 +60,8 @@ def train(X, y_arousal, y_valence, speakers):
 
         print(kfoldidx, "-fold")
         # svr = SVR(kernel = "rbf")
-        svr = SVR(kernel = "rbf")
+        # svr = SVR(kernel = "rbf")
+        svr = SVR(kernel = "rbf",gamma = 1,C=100,epsilon = 0.1)
         X_train = X[train_idx]
         y_train = y_arousal[train_idx]
         X_valid = X[val_idx]
@@ -85,7 +86,7 @@ def train(X, y_arousal, y_valence, speakers):
         valid_scores.append(valid_score)
         oof_preds[val_idx] = oof_pred
 
-        break
+        # break
 
         
     # valence
@@ -95,7 +96,8 @@ def train(X, y_arousal, y_valence, speakers):
         # print("valence")
         # svr = SVR(kernel = "rbf")
         print(kfoldidx, "-fold")
-        svr = SVR(kernel = "rbf")
+        # svr = SVR(kernel = "rbf")
+        svr = SVR(kernel = "rbf",gamma = 1,C=100,epsilon = 0.1)
         X_train = X[train_idx]
         y_train = y_valence[train_idx]
         X_valid = X[val_idx]
@@ -119,7 +121,7 @@ def train(X, y_arousal, y_valence, speakers):
         v_valid_scores.append(valid_score)
         v_oof_preds[val_idx] = oof_pred
 
-        break
+        # break
 
 
     return train_scores, valid_scores, oof_preds, v_train_scores, v_valid_scores, v_oof_preds
