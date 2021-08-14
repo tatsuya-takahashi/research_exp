@@ -31,6 +31,8 @@ cmap_cv = plt.cm.coolwarm
 
 le = LabelEncoder()
 
+print('output f0')
+
 def seed_everything(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -127,16 +129,15 @@ def train(X, y_arousal, y_valence, speakers):
     return train_scores, valid_scores, oof_preds, v_train_scores, v_valid_scores, v_oof_preds
 
 
-DUP = 3
+DUP = 13
 
 print("duplicate:")
 print(DUP)
 
-_df_train = pd.read_csv("./output/train_unit" + str(DUP) + ".csv")
-_X = np.load("./output/train_feature_unit" + str(DUP) + ".npy")
+_df_train = pd.read_csv("./outputf0/train_unit" + str(DUP) + ".csv")
+_X = np.load("./outputf0/train_feature_unit" + str(DUP) + ".npy")
 
 print(len(_X))
-
 
 speakers = le.fit_transform(_df_train.speaker.values)
 train_scores, valid_scores, oof_preds, v_train_scores, v_valid_scores, v_oof_preds = train(_X, _df_train.arousal.values, _df_train.valence.values, speakers)
@@ -146,7 +147,7 @@ print("valid_scores", np.mean(valid_scores))
 print("v_train_scores", np.mean(v_train_scores))
 print("v_valid_scores", np.mean(v_valid_scores))
 
-np.save('./output/a_train_score_' + str(DUP), np.array(train_scores))
-np.save('./output/a_valid_score_' + str(DUP), np.array(valid_scores))
-np.save('./output/v_train_score_' + str(DUP), np.array(v_train_scores))
-np.save('./output/v_valid_score_' + str(DUP), np.array(v_valid_scores))
+np.save('./outputf0/a_train_score_' + str(DUP), np.array(train_scores))
+np.save('./outputf0/a_valid_score_' + str(DUP), np.array(valid_scores))
+np.save('./outputf0/v_train_score_' + str(DUP), np.array(v_train_scores))
+np.save('./outputf0/v_valid_score_' + str(DUP), np.array(v_valid_scores))
